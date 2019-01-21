@@ -1,0 +1,11 @@
+{% extends "base.njk" %}
+
+{% block title %}Plain Text{% endblock %}
+
+{% block body %}
+<code>
+  <pre>
+    {{ raw }}
+  </pre>
+<code>
+{% endblock %}

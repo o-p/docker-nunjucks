@@ -1,0 +1,14 @@
+{% extends "base.njk" %}
+
+{% block title %}JSON{% endblock %}
+
+{% block body %}
+<table>
+{% for key, value in data %}
+  <tr>
+    <td>{{ key }}</td>
+    <td>{{ value }}</td>
+  </tr>
+{% endfor %}
+</table>
+{% endblock %}

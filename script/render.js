@@ -79,7 +79,14 @@ function getRawData({ json, data, input, bufferRaw }) {
         ? fs.readFileSync(input)
         : fs.readFileSync(input).toString('utf8')
 
-    // read from stdin
+    case typeof json === 'string' && !!json.length:
+      debug('---- Read raw data from options "json" ----')
+      return json
+
+    case typeof data === 'string' && !!data.length:
+      debug('---- Read raw data from options "data" ----')
+      return data
+
     case !process.stdin.isTTY:
       debug('---- Read raw data from StdIn ----')
       const stdin = process.platform === 'win32'
@@ -87,10 +94,9 @@ function getRawData({ json, data, input, bufferRaw }) {
         : '/dev/stdin'
       return fs.readFileSync(stdin, 'utf8')
 
-    // read from command options
     default:
-      debug('---- Read raw data from command options ----')
-      return json || data
+      console.error('💥 No data are found')
+      process.exit(1)
   }
 }
 
@@ -105,10 +111,12 @@ function getFormat(userOptions) {
 
 function print(rawString, { output }) {
   if (output) {
+    debug(`---- Output result to file: ${output} ----`)
     return fs.writeFileSync(output, rawString, {
       encoding: 'utf8',
     })
   }
 
+  debug('---- Output result to stdout ----')
   return console.log(rawString)
 }

@@ -1,35 +1,50 @@
 # Docker Nunjucks
 
-## Usage
+Easier print logs to desired format.
 
-Simplest way, use json option.
+## How to Use
 
-```bash
-$ docker run --rm \
-    $IMAGE:latest \
-    --json '{"hello": "world"}'
-```
+* Stdout
 
-Pipe stdin, it might useful if you are handling a more complex content.
+  * Use json option:
 
-```bash
-$ cat yourfile.tsv | docker run -i --rm \
-    $IMAGE:latest \
-    --format 'tsv'
-```
+    ```bash
+    $ docker run --rm \
+        chrischu/nunjucks:latest \
+        --json '{"hello": "world"}'
+    ```
 
-Provide your templates
+  * Pipe from host into container:
 
-```bash
-$ echo '<span>{{ raw }}</span>' > file.html
-$ docker run --rm \
-    -v file.html:/templates/example.njk
-    $IMAGE:latest
-    --format plain-text
-    --data 'Hello, world'
-```
+    ```bash
+    $ cat script/package.json | docker run --rm -i \
+        chrischu/nunjucks:latest \
+        --format json
+    ```
 
-## Build
+* Files
+
+  * Mount volume with your needs:
+
+    ```
+    + /templates/<FORMAT>.njk ...... templates
+    + /parsers/<FORMAT>.js ......... [TBD] parsers
+    + /export/ ..................... [TBD] Directory to save output files
+    ```
+
+  * Specific filename by options:
+
+    ```bash
+    $ docker run --rm \
+        -v $PWD:/exports
+        chrischu/nunjucks:latest \
+        --output /exports/index.html
+        'Hello, world'
+
+    $ cat index.html
+    <!DOCTYPE html>
+    ...
+    ```
 
 ## References
 

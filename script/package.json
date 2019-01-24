@@ -15,7 +15,7 @@
   "devDependencies": {},
   "scripts": {
     "build": "node render.js",
-    "dev": "DEBUG=docker-nunjucks node render.js --templates=$PWD/../templates"
+    "dev": "DEBUG=docker-nunjucks node render.js --templates=$PWD/templates"
   },
   "keywords": [
     "docker",

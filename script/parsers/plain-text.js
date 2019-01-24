@@ -1,1 +1,1 @@
-module.exports = raw => ({ raw })
+module.exports = raw => ({ raw, data: null })

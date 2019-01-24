@@ -1,4 +1,6 @@
-module.exports = ({ MainOptions, AdvenceOptions, OtherOptions }) => console.log(require('command-line-usage')([
+const { MainOptions, AdvenceOptions, OtherOptions } = require('./options')
+
+module.exports = () => require('command-line-usage')([
   {
     raw: true,
     content: require('chalk').yellow(require('./banner'))
@@ -31,4 +33,4 @@ module.exports = ({ MainOptions, AdvenceOptions, OtherOptions }) => console.log(
       `$ yarn build {bold --input} {italic package.json} {bold --json}`
     ],
   }
-]))
+])

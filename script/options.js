@@ -1,4 +1,4 @@
-exports.MainOptions = [
+const MainOptions = [
   { name: 'format', alias: 'f', type: String, defaultValue: 'plain-text', description: 'Data format, {italic "plain-text"} as default.' },
   { name: 'json', alias: 'j', type: String, description: 'Shorthand for {bold --format} {italic json} {bold --data} {italic <JSON>}' },
   { name: 'data', alias: 'd', type: String, defaultOption: true, defaultValue: '', description: 'String of input data' },
@@ -7,12 +7,22 @@ exports.MainOptions = [
   { name: 'templates', type: String, defaultValue: '/templates', description: 'Path to the directory of nunjucks templates; {italic "/templates"} as default.' },
 ]
 
-exports.AdvenceOptions = [
+const AdvenceOptions = [
   { name: 'buffer-raw', type: Boolean, description: 'Set the option if you are expecting to provide your own parsers and deal with buffer instead of strings.' },
   { name: 'extension', type: String, defaultValue: 'njk', description: 'Extension filename of template files; {italic "njk"} is default extension.' },
 ]
 
-exports.OtherOptions = [
+const OtherOptions = [
   { name: 'help', alias: 'h', type: Boolean },
   { name: 'version', alias: 'v', type: Boolean },
 ]
+
+module.exports = (config = {}) => require('command-line-args')([
+  ...MainOptions,
+  ...AdvenceOptions,
+  ...OtherOptions,
+], config)
+
+module.exports.MainOptions = MainOptions
+module.exports.AdvenceOptions = AdvenceOptions
+module.exports.OtherOptions = OtherOptions

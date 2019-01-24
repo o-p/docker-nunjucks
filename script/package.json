@@ -14,8 +14,12 @@
   },
   "devDependencies": {},
   "scripts": {
-    "build": "node render.js",
-    "dev": "DEBUG=docker-nunjucks node render.js --templates=$PWD/templates"
+    "build": "NODE_ENV=production node render.js",
+    "dev": "DEBUG=docker-nunjucks node render.js --templates=$PWD/templates",
+    "test": "yarn test:json && yarn test:data && yarn test:pipe && echo 'It is just work...'",
+    "test:json": "node render.js --json '{}' && read -rsp $'Press any key to continue...\n' -n1 key && clear",
+    "test:data": "node render.js 'Hello, world' && read -rsp $'Press any key to continue...\n' -n1 key && clear",
+    "test:pipe": "echo '{}' | node render.js --format json && read -rsp $'Press any key to continue...\n' -n1 key && clear"
   },
   "keywords": [
     "docker",

@@ -1,3 +1,6 @@
 {
-  "markdown": "md"
+  "format": {
+    "markdown": "md",
+    "default": "plain-text"
+  }
 }

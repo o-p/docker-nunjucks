@@ -1,6 +1,6 @@
 const MainOptions = [
-  { name: 'data', alias: 'd', type: String, defaultOption: true, defaultValue: '', description: 'Raw string of input data' },
-  { name: 'format', alias: 'f', type: String, defaultValue: 'plain-text', description: 'Data format, {italic "plain-text"} as default.' },
+  { name: 'data', alias: 'd', type: String, defaultOption: true, multiple: true, description: 'Raw string of input data' },
+  { name: 'format', alias: 'f', type: String, description: 'Specific data format to processing all inputs.' },
   { name: 'json', alias: 'j', type: String, description: 'Shorthand for {bold --format} {italic json} {bold --data} {italic <JSON>}' },
 
   { name: 'input', alias: 'i', type: String, description: 'File of input data; use {bold stdin} or {bold data} option if not set this option.' },
@@ -10,9 +10,9 @@ const MainOptions = [
 ]
 
 const AdvenceOptions = [
-  { name: 'parsers', type: String, defaultValue: '/parsers', description: 'Path to custom parsers folder; {italic "/parsers"} as default.'},
-  { name: 'templates', type: String, defaultValue: '/templates', description: 'Path to the templates folder; {italic "/templates"} as default.' },
-  { name: 'themes', type: String, defaultValue: '/themes', description: 'Path to custom themes folder; {italic "/themes"} as default.'},
+  { name: 'parser-dir', type: String, defaultValue: '/parsers', description: 'Path to custom parsers folder; {italic "/parsers"} as default.'},
+  { name: 'template-dir', type: String, defaultValue: '/templates', description: 'Path to the templates folder; {italic "/templates"} as default.' },
+  { name: 'theme-dir', type: String, defaultValue: '/themes', description: 'Path to custom themes folder; {italic "/themes"} as default.'},
 
   { name: 'buffer-raw', type: Boolean, description: 'Set the option if you are expecting to provide your own parsers and deal with buffer instead of strings.' },
   { name: 'extension', type: String, defaultValue: 'njk', description: 'File extension of template files; {italic "njk"} as default.' },
@@ -23,11 +23,31 @@ const OtherOptions = [
   { name: 'version', alias: 'v', type: Boolean },
 ]
 
-module.exports = (config = {}) => require('command-line-args')([
-  ...MainOptions,
-  ...AdvenceOptions,
-  ...OtherOptions,
-], config)
+const UNSET = Symbol('Not set this options in CLi')
+
+module.exports = (config = {}) => {
+  const {
+    data: optData = [],
+    format,
+    json = UNSET,
+    ...args
+  } = require('command-line-args')([
+    ...MainOptions,
+    ...AdvenceOptions,
+    ...OtherOptions,
+  ], config)
+
+  const data = [
+    json !== UNSET && json,
+    ...optData,
+  ].filter(Boolean)
+
+  return {
+    data,
+    format: json !== UNSET ? 'json' : format,
+    ...args,
+  }
+}
 
 module.exports.MainOptions = MainOptions
 module.exports.AdvenceOptions = AdvenceOptions

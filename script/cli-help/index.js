@@ -1,4 +1,4 @@
-const { MainOptions, AdvenceOptions, OtherOptions } = require('../options')
+const { MainOptions, AdvenceOptions, OtherOptions } = require('../cli-options')
 
 module.exports = () => require('command-line-usage')([
   {

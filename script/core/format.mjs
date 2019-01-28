@@ -4,7 +4,7 @@ const Settings = {
   defaultFormat: '',
 }
 
-module.exports.configure = ({ mapping = {}, ...rest }) => {
+function configure({ mapping = {}, ...rest }) {
   Settings.mapping = Object.assign({}, Settings.mapping, mapping)
 
   Object.assign(Settings, rest)
@@ -12,11 +12,11 @@ module.exports.configure = ({ mapping = {}, ...rest }) => {
   return Settings
 }
 
-module.exports.getSpecifiedFormat = () => Settings.force
+const getSpecifiedFormat = () => Settings.force
 
-module.exports.getDefaultFormat = () => Settings.defaultFormat
+const getDefaultFormat= () => Settings.defaultFormat
 
-module.exports.normalize = (type = '') => {
+function normalize(type = '') {
   const firstValidChar = type.search(/[A-Za-z0-9]/)
 
   if (type.length === 0 || firstValidChar === -1) {
@@ -25,4 +25,11 @@ module.exports.normalize = (type = '') => {
 
   const normalized = type.slice(firstValidChar).trimRight().toLowerCase()
   return Settings.mapping[normalized] || normalized
+}
+
+export {
+  configure,
+  getSpecifiedFormat,
+  getDefaultFormat,
+  normalize,
 }

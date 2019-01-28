@@ -1,9 +1,13 @@
-const { MainOptions, AdvenceOptions, OtherOptions } = require('../cli-options')
+import Color from 'chalk'
+import usageFormatter from 'command-line-usage'
 
-module.exports = () => require('command-line-usage')([
+import banner from './banner'
+import { MainOptions, AdvenceOptions, OtherOptions } from '../cli-options'
+
+export default () => usageFormatter([
   {
     raw: true,
-    content: require('chalk').yellow(require('./banner'))
+    content: Color.yellow(banner)
   },
   {
     header: 'Synopsis',

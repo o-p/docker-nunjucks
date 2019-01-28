@@ -1,12 +1,6 @@
-'use strict'
+import RawData from './RawData'
 
-const fs = require('fs')
-const path = require('path')
-
-const RawData = require('./RawData')
-const { normalize } = require('../format')
-
-class StringArrayRawData extends RawData {
+export default class StringArrayRawData extends RawData {
 
   constructor(...args) {
     super(...args)

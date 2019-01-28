@@ -1,6 +1,6 @@
-const nunjucks = require('nunjucks')
+import nunjucks from 'nunjucks'
 
-module.exports = (dir) => {
+export default (dir) => {
   nunjucks.configure(dir, {
     autoescape: true,
   })

@@ -1,13 +1,9 @@
-// const debug = require('debug')('docker-nunjucks')
-const fs = require('fs')
-// const nunjucks = require('nunjucks')
-const path = require('path')
+import fs from 'fs'
+import path from 'path'
 
-const StringArrayRaw = require('./core/raw/StringArrayRawData')
+import StringArrayRaw from './core/raw/StringArrayRawData'
 
-// const use = require('./core/useCoreModules')(debug)
-
-module.exports = (options, logger = () => {}) => {
+export default (options, logger = () => {}) => {
 
   // const format = getFormat(options)
   // const list = extractRawData(options)

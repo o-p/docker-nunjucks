@@ -15,7 +15,7 @@
   "devDependencies": {},
   "scripts": {
     "build": "NODE_ENV=production node cli.js",
-    "dev": "DEBUG=docker-nunjucks node --experimental-repl-await cli.js",
+    "dev": "DEBUG=docker-nunjucks NODE_OPTIONS=--experimental-modules node cli.mjs",
     "test": "yarn test:json && yarn test:data && yarn test:pipe && echo 'It is just work...'",
     "test:json": "node render.js --json '{}' && read -rsp $'Press any key to continue...\n' -n1 key && clear",
     "test:data": "node render.js 'Hello, world' && read -rsp $'Press any key to continue...\n' -n1 key && clear",

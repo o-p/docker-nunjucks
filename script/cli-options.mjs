@@ -1,3 +1,5 @@
+import cliOptionsGetter from 'command-line-args'
+
 const MainOptions = [
   { name: 'data', alias: 'd', type: String, defaultOption: true, multiple: true, description: 'Raw string of input data' },
   { name: 'format', alias: 'f', type: String, description: 'Specific data format to processing all inputs.' },
@@ -25,13 +27,13 @@ const OtherOptions = [
 
 const UNSET = Symbol('Not set this options in CLi')
 
-module.exports = (config = {}) => {
+function optionsGetter(config = {}) {
   const {
     data: optData = [],
     format,
     json = UNSET,
     ...args
-  } = require('command-line-args')([
+  } = cliOptionsGetter([
     ...MainOptions,
     ...AdvenceOptions,
     ...OtherOptions,
@@ -49,6 +51,10 @@ module.exports = (config = {}) => {
   }
 }
 
-module.exports.MainOptions = MainOptions
-module.exports.AdvenceOptions = AdvenceOptions
-module.exports.OtherOptions = OtherOptions
+export {
+  optionsGetter as default,
+
+  AdvenceOptions,
+  MainOptions,
+  OtherOptions,
+}
